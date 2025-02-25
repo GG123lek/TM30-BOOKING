@@ -1,12 +1,17 @@
 import React from "react";
-import { FaSearch, FaRegBell, FaRegQuestionCircle } from "react-icons/fa";
+import { FaSearch, FaRegBell, FaRegQuestionCircle, FaHome } from "react-icons/fa";
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-white shadow-md p-4 flex items-center justify-end border-b border-gray-200">
-      {/* Right Section: Search Bar + Icons */}
+    <div className="navbar bg-white shadow-md p-4 flex items-center justify-between border-b border-gray-200">
+      {/* Left side: Home4U */}
+      <div className="flex items-center space-x-2">
+        <FaHome className="text-black-600 text-2xl" />
+        <h3 className="text-2xl font-bold text-gray-800">Home4U</h3>
+      </div>
+
+      {/* Right side: Search bar and icons */}
       <div className="flex items-center space-x-6">
-        {/* Search Bar */}
         <div className="relative">
           <input
             type="text"
@@ -16,7 +21,6 @@ const Navbar = () => {
           <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#5C5E64] text-lg" />
         </div>
 
-        {/* Notification & Help Icons */}
         <FaRegQuestionCircle className="text-gray-600 hover:text-blue-500 text-xl cursor-pointer" />
         <FaRegBell className="text-gray-600 hover:text-blue-500 text-xl cursor-pointer" />
       </div>

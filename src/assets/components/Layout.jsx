@@ -5,14 +5,18 @@ import Navbar from "../components/Navbar";
 
 const Layout = () => {
   return (
-    <div className="layout-page flex">
-      {/* Sidebar */}
-      <Sidebar />
-
-      {/* Main Content */}
-      <div className="w-6/4 min-h-screen">
+    <div className=" overflow-hidden ">
+      <div className="">
         <Navbar />
+      </div>
+
+      <div className="w-full min-h-screen flex">
+        <div className="w-[20%]">
+          <Sidebar />
+        </div>
+        <div className="w-[80%] " >
         <Outlet />
+        </div>
       </div>
     </div>
   );
