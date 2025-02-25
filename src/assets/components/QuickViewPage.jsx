@@ -3,13 +3,10 @@ import { IoArrowBack } from "react-icons/io5";
 
 const QuickViewPage = ({ onBack }) => {
   return (
-    <div className="p-6 bg-[#FAFAFA] min-h-screen flex items-start">
-      <button 
-        onClick={onBack} 
-        className="text-gray-700 text-2xl flex items-center gap-2 cursor-pointer"
-      >
-        <IoArrowBack className="text-3xl" />
-        <span className="text-lg">Back</span>
+    <div className="p-6 flex items-center">
+      {/* Back Button */}
+      <button onClick={onBack} className="flex items-center text-blue-600 text-lg">
+        <IoArrowBack className="mr-2 text-xl" /> Back
       </button>
     </div>
   );
