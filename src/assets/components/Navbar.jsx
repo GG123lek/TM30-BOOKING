@@ -3,7 +3,7 @@ import { FaSearch, FaRegBell, FaRegQuestionCircle, FaHome } from "react-icons/fa
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-white shadow-md p-4 flex items-center justify-between border-b border-gray-200">
+    <div className="navbar bg-white shadow-md p-4 flex items-center justify-between border-b" style={{ borderColor: "#D9D9D9" }}>
       {/* Left side: Home4U */}
       <div className="flex items-center space-x-2">
         <FaHome className="text-black-600 text-2xl" />

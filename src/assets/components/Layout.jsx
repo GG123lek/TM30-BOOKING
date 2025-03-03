@@ -5,17 +5,20 @@ import Navbar from "../components/Navbar";
 
 const Layout = () => {
   return (
-    <div className=" overflow-hidden ">
-      <div className="">
-        <Navbar />
-      </div>
+    <div className="h-screen flex flex-col overflow-hidden">
+      {/* Navbar */}
+      <Navbar />
 
-      <div className="w-full min-h-screen flex">
-        <div className="w-[20%]">
+      {/* Sidebar + Main Content */}
+      <div className="flex flex-grow overflow-hidden">
+        {/* Sidebar */}
+        <div className="w-[20%] md:w-[25%] lg:w-[20%] hidden md:block bg-[#D9D9D9]">
           <Sidebar />
         </div>
-        <div className="w-[80%] " >
-        <Outlet />
+
+        {/* Main Content Area */}
+        <div className="w-[80%] flex-grow overflow-auto">
+          <Outlet />
         </div>
       </div>
     </div>
