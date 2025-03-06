@@ -5,6 +5,7 @@ import DiscoverPage from "./assets/components/Pages/DiscoverPage";
 import FavoritePage from "./assets/components/Pages/FavoritePage";
 import BookingPage from "./assets/components/Pages/BookingPage";
 
+
 function App() {
   return (
     <Routes>

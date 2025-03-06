@@ -7,9 +7,9 @@ import QuickViewPageTwo from "../../components/QuickViewPageTwo";
 import houseOne from "../../../assets/sulephototwo.png";
 import houseTwo from "../../../assets/sulephotoone.png";
 import houseThree from "../../../assets/sulephotothree.png";
-import houseFour from  "../../../assets/sulephotofour.png";
+import houseFour from "../../../assets/sulephotofour.png";
 import houseFive from "../../../assets/sulephotofive.png";
-import houseSix from "../../../assets/sulephotosix.png"
+import houseSix from "../../../assets/sulephotosix.png";
 
 import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
 
@@ -42,7 +42,7 @@ const DiscoverPage = () => {
       reviews: 130,
       features: [
         { icon: <FaBed className="text-lg" />, label: "5 Beds" },
-         { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
+        { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
         { icon: <FaSwimmingPool className="text-lg" />, label: "Swimming Pool" },
       ],
       tag: "Newly Added",
@@ -105,6 +105,13 @@ const DiscoverPage = () => {
     },
   ];
 
+  // Filter the apartments based on the active tab
+  const filteredApartments = apartments.filter(apartment => 
+    activeTab === "all-apartment" || 
+    (activeTab === "top-rated" && apartment.tag === "Top rated") || 
+    (activeTab === "newly-added" && apartment.tag === "Newly Added")
+  );
+
   return (
     <div className="flex flex-col min-h-screen overflow-auto">
       {isQuickViewOpen ? (
@@ -121,7 +128,7 @@ const DiscoverPage = () => {
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`px-6 py-2 rounded-md text-gray-700 bg-[#F5F7F9] cursor-pointer ${
-                    activeTab === tab ? "font-semibold" : ""
+                    activeTab === tab ? "font-semibold bg-gray-300" : ""
                   }`}
                 >
                   {tab.replace("-", " ")}
@@ -136,7 +143,7 @@ const DiscoverPage = () => {
           
           {/* Card Section */}
           <div className="w-full flex-grow bg-[#FAFAFA] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {apartments.map((apartment, index) => (
+            {filteredApartments.map((apartment, index) => (
               <ApartmentCard 
                 key={index} 
                 {...apartment}
