@@ -1,10 +1,10 @@
 import React from "react";
 import { IoArrowBack } from "react-icons/io5";
 import { FaBed, FaWifi, FaSwimmingPool } from "react-icons/fa";
+import { FiChevronDown } from "react-icons/fi";
 import bokpic from "../../assets/bokimage.png";
 import mark from "../../assets/CheckOne.png"
 import alertIcon from "../../assets/alert.png"
-import maple from "../../assets/maple.png"
 const BookingContainer = ({ onBack }) => {
   return (
     <div className="bg-[#FAFAFA] min-h-screen">
@@ -93,124 +93,154 @@ const BookingContainer = ({ onBack }) => {
     </div>
 
   
-    <label className="text-gray-800 font-semibold text-lg block mt-6 ml-4">
-      Enter Your Details
-    </label>
-
-    <div className="grid grid-cols-2 gap-x-3 gap-y-3 mt-4 ml-4">
-  {/* First Name */}
-  <div className="flex flex-col w-[250px] relative">
-  <label className="text-[#344054] text-sm font-medium mb-1">First Name</label>
-  <div className="relative">
-    <input 
-      type="tel" 
-      placeholder="Abiola" 
-      className="p-3 bg-white border border-gray-300 rounded-md w-full outline-none"
-    />
-    <img src={mark} alt="Alert Icon" 
-      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
-    />
-  </div>
-</div>
- 
-
-  {/* Last Name */}
-  <div className="flex flex-col w-[250px] relative">
-  <label className="text-[#344054] text-sm font-medium mb-1">Last Name</label>
-  <div className="relative">
-    <input 
-      type="tel" 
-      placeholder="Fisola" 
-      className="p-3 bg-white border border-gray-300 rounded-md w-full outline-none"
-    />
-    <img src={mark} alt="Alert Icon" 
-      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
-    />
-  </div>
-</div>
-  
-
-  {/* Phone Number */}
-  <div className="flex flex-col w-[250px] relative">
-  <label className="text-[#344054] text-sm font-medium mb-1">Email</label>
-  <div className="relative">
-    <input 
-      type="tel" 
-      placeholder="fisoprima@gmailcom" 
-      className="p-3 bg-white border border-gray-300 rounded-md w-full outline-none"
-    />
-    <img src={alertIcon} alt="Alert Icon" 
-      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
-    />
-  </div>
-</div>
-
-
-
-  <div className="flex flex-col w-[250px] relative">
-  <label className="text-[#344054] text-sm font-medium mb-1">Phone Number</label>
-  <div className="relative">
-    <input 
-      type="tel" 
-      placeholder="+1234567890" 
-      className="p-3 bg-white border border-gray-300 rounded-md w-full outline-none"
-    />
-    <img src={mark} alt="Alert Icon" 
-      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
-    />
-  </div>
-</div>
-
-</div>
-
-
-  
-    <label className="text-gray-800 font-semibold text-lg block mt-8 ml-4">
-      Enter Guest Details (Optional)
-    </label>
-
-    <div className="grid grid-cols-2 gap-x-3 gap-y-3 mt-4 ml-4">
-     
-      <div className="flex flex-col w-[250px]">
-        <label className="text-[#344054] text-sm font-medium mb-1">Guest First Name</label>
-        <input 
-          type="text" 
-          placeholder="Guest Name" 
-          className="p-3 bg-gray-100 rounded-md w-[120%] outline-none"
-        />
-      </div>
-
-     
-      <div className="flex flex-col w-[250px]">
-        <label className="text-[#344054] text-sm font-medium mb-1">Guest Last Name</label>
-        <input 
-          type="text" 
-          placeholder="Guest Last Name" 
-          className="p-3 bg-gray-100 rounded-md w-[120%] outline-none"
-        />
-      </div>
-
     
-      <div className="flex flex-col w-[250px]">
-        <label className="text-[#344054] text-sm font-medium mb-1">Guest Phone Number</label>
-        <input 
-          type="tel" 
-          placeholder="+1234567890" 
-          className="p-3 bg-gray-100 rounded-md w-[120%] outline-none"
-        />
-      </div>
 
-      
-      <div className="flex flex-col w-[250px]">
-        <label className="text-[#344054] text-sm font-medium mb-1">Guest Email</label>
-        <input 
-          type="email" 
-          placeholder="guest@example.com" 
-          className="p-3 bg-gray-100 rounded-md w-[120%] outline-none"
-        />
-      </div>
+<div className="grid grid-cols-2 gap-x-3 gap-y-3 mt-4 ml-4">
+ 
+  <div className="flex flex-col w-[280px] relative">
+    <label className="text-[#344054] text-sm font-medium mb-1">First Name</label>
+    <div className="relative">
+      <input 
+        type="text" 
+        placeholder="Abiola" 
+        className="p-2 bg-white border border-gray-300 rounded-md w-full outline-none"
+      />
+      <img src={mark} alt="Alert Icon" 
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
+      />
     </div>
+  </div>
 
+ 
+  <div className="flex flex-col w-[280px] relative">
+    <label className="text-[#344054] text-sm font-medium mb-1">Last Name</label>
+    <div className="relative">
+      <input 
+        type="text" 
+        placeholder="Fisola" 
+        className="p-2 bg-white border border-gray-300 rounded-md w-full outline-none"
+      />
+      <img src={mark} alt="Alert Icon" 
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
+      />
+    </div>
+  </div>
+
+  
+  <div className="flex flex-col w-[280px] relative">
+    <label className="text-[#344054] text-sm font-medium mb-1">Email</label>
+    <div className="relative">
+      <input 
+        type="email" 
+        placeholder="fisoprima@gmail.com" 
+        className="p-2 bg-white border border-gray-300 rounded-md w-full outline-none"
+      />
+      <img src={alertIcon} alt="Alert Icon" 
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
+      />
+    </div>
+  </div>
+
+ 
+  <div className="flex flex-col w-[280px] relative">
+  <label className="text-[#344054] text-sm font-medium mb-1">Phone Number</label>
+  <div className="relative flex items-center border border-gray-300 rounded-md bg-white p-2">
+    <div 
+      className="flex items-center gap-1 px-2  cursor-pointer" 
+      onClick={() => console.log("Open country code selector")}
+    >
+      <span className="text-sm font-medium">+234</span>
+      <FiChevronDown className="w-4 h-4" />
+    </div>
+    <input 
+      type="tel" 
+      value="9069350833" 
+      className="flex-1 h-full outline-none bg-transparent" 
+    />
+    <img src={mark} alt="Alert Icon" 
+      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
+    />
+  </div>
+</div>
+
+</div>
+
+<label className="text-gray-800 font-semibold text-lg block mt-8 ml-4">
+  Enter Guest Details (Optional)
+</label>
+
+<div className="grid grid-cols-2 gap-x-3 gap-y-3 mt-4 ml-4">
+  
+  <div className="flex flex-col w-[280px] relative">
+    <label className="text-[#344054] text-sm font-medium mb-1">First Name</label>
+    <div className="relative">
+      <input 
+        type="text" 
+        placeholder="Abiola" 
+        className="p-2 bg-white border border-gray-300 rounded-md w-full outline-none"
+      />
+      <img src={mark} alt="Alert Icon" 
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
+      />
+    </div>
+  </div>
+
+ 
+  <div className="flex flex-col w-[280px] relative">
+    <label className="text-[#344054] text-sm font-medium mb-1">Last Name</label>
+    <div className="relative">
+      <input 
+        type="text" 
+        placeholder="Fisola" 
+        className="p-2 bg-white border border-gray-300 rounded-md w-full outline-none"
+      />
+      <img src={mark} alt="Alert Icon" 
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
+      />
+    </div>
+  </div>
+
+ 
+  <div className="flex flex-col w-[280px] relative">
+    <label className="text-[#344054] text-sm font-medium mb-1">Email</label>
+    <div className="relative">
+      <input 
+        type="email" 
+        placeholder="fisoprima@gmail.com" 
+        className="p-2 bg-white border border-gray-300 rounded-md w-full outline-none"
+      />
+      <img src={alertIcon} alt="Alert Icon" 
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
+      />
+    </div>
+  </div>
+
+ 
+  <div className="flex flex-col w-[280px] relative">
+  <label className="text-[#344054] text-sm font-medium mb-1">Phone Number</label>
+  <div className="relative flex items-center border border-gray-300 rounded-md bg-white p-2">
+    <div 
+      className="flex items-center gap-1 px-2  cursor-pointer" 
+      onClick={() => console.log("Open country code selector")}
+    >
+      <span className="text-sm font-medium">+234</span>
+      <FiChevronDown className="w-4 h-4" />
+    </div>
+    <input 
+      type="tel" 
+      value="9069350833" 
+      className="flex-1 h-full outline-none bg-transparent" 
+    />
+    <img src={mark} alt="Alert Icon" 
+      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4" 
+    />
+  </div>
+</div>
+
+</div>
+
+
+  
   </div>
 
   <div className="w-[40%] bg-white p-6 shadow-md rounded-lg flex flex-col min-h-[550px] self-start">
