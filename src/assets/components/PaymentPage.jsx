@@ -1,9 +1,9 @@
 import React, { useState} from "react";
 import { IoArrowBack } from "react-icons/io5";
-import totimage from "../../assets/line image.png"
+import totimage from "../../assets/line.png"
 import gatt from "../../assets/magnet.png"
 import barr from "../../assets/correct icon.png"
-import uploadImage from "../../assets/illustration.png"
+import uploadImage from "../../assets/mold.png"
 import { CiCalendar } from "react-icons/ci";
 import PaymentConfirmation from "../components/PaymentConfirmation";
 
