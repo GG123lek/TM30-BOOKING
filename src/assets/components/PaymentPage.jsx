@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState} from "react";
 import { IoArrowBack } from "react-icons/io5";
 import totimage from "../../assets/line image.png"
 import gatt from "../../assets/payment method icon.png"
 import barr from "../../assets/correct icon.png"
 import uploadImage from "../../assets/illustration.png"
+import { CiCalendar } from "react-icons/ci";
+import PaymentConfirmation from "../components/PaymentConfirmation";
+
 
 const PaymentPage = ({ onBack }) => {  
+
+    const [isPaymentComplete, setIsPaymentComplete] = useState(false);
+
+    
+    if (isPaymentComplete) {
+      return <PaymentConfirmation onBack={() => setIsPaymentComplete(false)} />;
+    }
+
   return (
     <div className="bg-[#FAFAFA] min-h-screen">
      
@@ -31,8 +42,10 @@ const PaymentPage = ({ onBack }) => {
 
       
   
-   <div className="p-8">
+   <div className="p-8 flex gap-2 items-center">
+
    <IoArrowBack className="text-gray-700 text-2xl cursor-pointer" onClick={onBack} />
+   <p className="text-xl">Back</p>
    </div>
      
    <div className="flex justify-between gap-6 p-6">
@@ -131,8 +144,85 @@ const PaymentPage = ({ onBack }) => {
   </div>
 
   
-  <div className="w-[442px] h-[552px] bg-white shadow-md p-6">
-   
+  <div className="w-[442px] h-[440px] bg-white shadow-md p-6">
+  <div className="flex justify-between items-center">
+            <div>
+              <span className="font-bold text-black text-xl">
+                Booking Details
+              </span>
+              <span className="text-pink-300 text-md"></span>
+            </div>
+          </div>
+          <div className="w-full h-[2px] bg-[#D9D9D9] my-2 "></div>
+          <div className="flex items-center w-[280px]justify-between  py-4">
+            <div className="flex flex-col items-start">
+              <span className="text-xs text-[#999999]">Check-in</span>
+              <span className="text-sm font-medium text-gray-900">
+                Jan 15, 2025
+              </span>
+            </div>
+
+            <div className="flex-1 flex justify-center">
+              <div className="w-px h-8 bg-gray-300"></div>
+            </div>
+
+            <div className="flex flex-col items-end items-start">
+              <span className="text-xs text-[#999999]">Check-out</span>
+              <span className="text-sm font-medium text-gray-900">
+                March 15, 2025
+              </span>
+            </div>
+          </div>
+
+            <div className="flex flex-col items-start">
+                     
+                      <span className="text-xs text-[#999999]">No. of Guests</span>
+          
+                    
+                      <div className="flex items-center gap-2">
+                        <CiCalendar className="w-5 h-5 text-gray-500" />
+                        <span className="text-sm font-medium text-gray-900">
+                          2 Guests
+                        </span>
+                      </div>
+            </div>
+
+                    <div className="w-full h-[2px] bg-[#D9D9D9] my-2 "></div>
+
+                    <div>
+            <div>
+              <p className="text-base font-semibold">Payment Details</p>
+            </div>
+            <div className="mt-auto">
+              <div className="flex justify-between text-lg mt-4">
+                <span>
+                  <span className="font-light text-[#344054]">$45,000</span>
+                  <span className="text-[#344054]"> x 3 months</span>
+                </span>
+                <span className="text-gray-600 font-bold">$135,000</span>
+              </div>
+              <div className="flex justify-between text-lg">
+                <span className="text-[#344054]">Home4U service fee</span>
+                <span className="text-gray-600 font-bold">$50</span>
+              </div>
+
+              <div className="w-full h-[1px] bg-[#D9D9D9] my-2"></div>
+
+              <div className="flex justify-between text-lg font-bold my-2">
+                <span className="text-[#344054]">Total</span>
+                <span className="text-gray-600">$135,050</span>
+              </div>
+            </div>
+          </div>
+
+          
+          <button
+         
+          className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 w-full mt-6 cursor-pointer"
+          onClick={() => setIsPaymentComplete(true)}
+        >
+          Make Payment
+        </button>
   </div>
 </div>
 

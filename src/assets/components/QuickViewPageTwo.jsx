@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { IoArrowBack, IoShareSocial,} from "react-icons/io5";
 import { FaBed, FaWifi, FaSwimmingPool, FaStar } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
+import BookingContainer from "../components/BookingContainer";
 
 import content from "../../assets/contentimage.png";
 const QuickViewPageTwo = ({ onBack }) => {
     const [guestDropdown, setGuestDropdown] = useState(false);
-  
+    const [isBookingPage, setIsBookingPage] = useState(false);
+
+  if (isBookingPage) {
+    return <BookingContainer onBack={() => setIsBookingPage(false)} />;
+  }
   return (
    <div className="p-6 bg-[#FAFAFA] min-h-screen">
          <button
@@ -124,7 +129,8 @@ const QuickViewPageTwo = ({ onBack }) => {
        <div className="flex-grow"></div>
    
       
-       <button className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 w-full">Book Now</button>
+       <button className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 w-full"
+       onClick={() => setIsBookingPage(true)}>Book Now</button>
      </form>
    </div>
    

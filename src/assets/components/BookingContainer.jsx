@@ -52,7 +52,7 @@ const BookingContainer = ({ onBack }) => {
         <span>Back</span>
       </button>
 
-      <div className="relative flex justify-between items-start  space-x-8  min-h-[750px]">
+      <div className=" flex justify-between items-start  p-6 gap-6 min-h-[750px]">
         <div className="w-[55%] self-start  p-6 rounded-lg">
           <div className="flex items-center p-4">
             <img src={bokpic} alt="Booking Image" className="" />
@@ -270,7 +270,7 @@ const BookingContainer = ({ onBack }) => {
           </div>
         </div>
 
-        <div className="w-[40%] bg-white p-6 shadow-md rounded-lg flex flex-col min-h-[400px] self-start">
+        <div className="w-[30%] bg-white p-6 shadow-md rounded-lg flex flex-col min-h-[400px] self-start">
           <div className="flex justify-between items-center">
             <div>
               <span className="font-bold text-black text-xl">
@@ -303,10 +303,10 @@ const BookingContainer = ({ onBack }) => {
           </div>
 
           <div className="flex flex-col items-start">
-            {/* Label */}
+           
             <span className="text-xs text-[#999999]">No. of Guests</span>
 
-            {/* Icon + Text in a row */}
+          
             <div className="flex items-center gap-2">
               <CiCalendar className="w-5 h-5 text-gray-500" />
               <span className="text-sm font-medium text-gray-900">
