@@ -2,7 +2,7 @@ import React from "react";
 import { IoArrowBack } from "react-icons/io5";
 import successIcon from "../../assets/markcircle.png"
 import markCircle from "../../assets/markarc.png"
-import infoIcon from "../../assets/info.png"
+import infoIcon from "../../assets/kelin.png"
 import { AiOutlineStar } from "react-icons/ai";
 import { CiCalendar } from "react-icons/ci";
 
