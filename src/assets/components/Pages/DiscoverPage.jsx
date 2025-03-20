@@ -13,7 +13,7 @@ import houseSix from "../../../assets/sulephotosix.png";
 
 import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
 
-const DiscoverPage = () => {
+ const DiscoverPage = () => {
   const [activeTab, setActiveTab] = useState("all-apartment");
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [isQuickViewTwoOpen, setIsQuickViewTwoOpen] = useState(false);

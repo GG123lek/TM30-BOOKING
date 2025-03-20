@@ -99,7 +99,6 @@ const QuickViewPage = ({ onBack }) => {
               </div>
             </div>
 
-            {/* Ensure pricing text remains in place */}
             <div className="mt-auto">
               <div className="flex justify-between text-lg mt-4">
                 <span>
