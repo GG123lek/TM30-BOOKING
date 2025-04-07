@@ -1,9 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaHeart, FaBook } from "react-icons/fa";
 import { FaArrowRightFromBracket } from "react-icons/fa6"; 
 import profilepics from "../../assets/Avatar.png";
-import prof from "../../assets/navigationone.png"
+import prof from "../../assets/navigationone.png";
+import spark from "../../assets/sparkle.png";
+import cal  from "../../assets/Calendar.png"
 
 const Sidebar = () => {
   return (
@@ -11,13 +12,13 @@ const Sidebar = () => {
      
       <div className="p-6">
         <p className="text-gray-500 text-sm font-semibold mb-4 pl-4">MAIN</p>
-        <ul className="space-y-4">
+        <ul className="space-y-10">
           <li>
             <NavLink
               to="/discover"
               className={({ isActive }) =>
                 isActive
-                  ? "flex items-center space-x-2 text-blue-600 font-semibold pl-4"
+                  ? "flex items-center space-x-2  font-semibold pl-4"
                   : "flex items-center space-x-2 text-gray-700 pl-4"
               }
             >
@@ -31,11 +32,13 @@ const Sidebar = () => {
               to="/favorite"
               className={({ isActive }) =>
                 isActive
-                  ? "flex items-center space-x-2 text-blue-600 font-semibold pl-4"
+                  ? "flex items-center space-x-2  font-semibold pl-4"
                   : "flex items-center space-x-2 text-gray-700 pl-4"
               }
+            
             >
-              <FaHeart className="text-lg" />
+            
+              <img src={spark} alt=""/>
               <p>Favorite</p>
             </NavLink>
           </li>
@@ -44,11 +47,11 @@ const Sidebar = () => {
               to="/booking"
               className={({ isActive }) =>
                 isActive
-                  ? "flex items-center space-x-2 text-blue-600 font-semibold pl-4"
+                  ? "flex items-center space-x-2  font-semibold pl-4"
                   : "flex items-center space-x-2 text-gray-700 pl-4"
               }
             >
-              <FaBook className="text-lg" />
+              <img src={cal} alt="" />
               <p>Booking</p>
             </NavLink>
           </li>
