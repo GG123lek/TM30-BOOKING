@@ -4,11 +4,17 @@ import Layout from "./assets/components/Layout";
 import DiscoverPage from "./assets/components/Pages/DiscoverPage";
 import FavoritePage from "./assets/components/Pages/FavoritePage";
 import BookingPage from "./assets/components/Pages/BookingPage";
-
+import SignInPage from "./assets/components/SignInPage"; 
+import SignIn from "./assets/components/Signin"; 
 
 function App() {
   return (
     <Routes>
+      
+      <Route path="/signin" element={<SignIn />} /> 
+      <Route path="/signinpage" element={<SignInPage />} /> 
+     
+
       <Route path="/" element={<Layout />}>
         <Route index element={<DiscoverPage />} />
         <Route path="discover" element={<DiscoverPage />} />
