@@ -6,6 +6,9 @@ import FavoritePage from "./assets/components/Pages/FavoritePage";
 import BookingPage from "./assets/components/Pages/BookingPage";
 import SignInPage from "./assets/components/SignInPage"; 
 import SignIn from "./assets/components/Signin"; 
+import ForgotPassword from "./assets/components/ForgotPassword"; 
+import PasswordReset from "./assets/components/PasswordReset";
+import SetNewPassword from "./assets/components/SetNewPassword";
 
 function App() {
   return (
@@ -13,6 +16,9 @@ function App() {
       
       <Route path="/signin" element={<SignIn />} /> 
       <Route path="/signinpage" element={<SignInPage />} /> 
+      <Route path="/forgot-password" element={<ForgotPassword />} /> 
+      <Route path="/password-reset" element={<PasswordReset />} />
+      <Route path="/set-new-password" element={<SetNewPassword />} />
      
 
       <Route path="/" element={<Layout />}>

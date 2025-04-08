@@ -47,7 +47,7 @@ const SignIn = () => {
               <span className="text-blue-600 cursor-pointer hover:underline">Forgot password</span>
             </div>
 
-            {/* Submit Button */}
+            
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition cursor-pointer"
