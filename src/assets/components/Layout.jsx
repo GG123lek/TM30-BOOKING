@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import React from "react";
 import Sidebar from "../components/SideBar";
 import Navbar from "../components/Navbar";
-
+import ErrorBoundary from "./ErrorBoundary";
 const Layout = () => {
   return (
     <div className="h-screen flex flex-col overflow-hidden relative">
@@ -15,7 +15,9 @@ const Layout = () => {
       <div className="flex flex-grow overflow-hidden">
        
         <div className="w-[20%] md:w-[25%] lg:w-[20%] hidden md:block bg-[#D9D9D9]">
-          <Sidebar />
+        <ErrorBoundary>
+         <Sidebar />
+        </ErrorBoundary>
         </div>
 
        

@@ -1,12 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink , useNavigate} from "react-router-dom";
 import { FaArrowRightFromBracket } from "react-icons/fa6"; 
 import profilepics from "../../assets/Avatar.png";
 import prof from "../../assets/navigationone.png";
 import spark from "../../assets/sparkle.png";
 import cal  from "../../assets/Calendar.png"
 
+
 const Sidebar = () => {
+
+  const navigate = useNavigate();
+
+
   return (
     <div className="h-full bg-white shadow-md flex flex-col relative">
      
@@ -62,7 +67,10 @@ const Sidebar = () => {
       <div className="bg-gray-200 w-full py-4 px-6 flex items-center justify-between absolute bottom-1/3 left-0 border-t border-gray-300">
         <img src={profilepics} alt="" className="w-12 h-12 bg-gray-300 rounded-full" />
         <p className="text-gray-700 font-medium">Prime Abiola</p>
-        <FaArrowRightFromBracket className="text-red-500 cursor-pointer hover:text-red-500 text-lg" />
+        <FaArrowRightFromBracket className="text-red-500 cursor-pointer hover:text-red-500 text-lg"
+
+         onClick={() => navigate("/signinpage")}
+         />
       </div>
     </div>
   );

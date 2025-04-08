@@ -1,5 +1,6 @@
 import React from "react";
 import backgroundImage from "../../assets/framesignup.png";  
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   return (
@@ -58,9 +59,9 @@ const SignIn = () => {
         
             <p className="text-sm text-center text-gray-600 mt-4">
               Don’t have an account?{" "}
-              <span className="text-blue-600 font-medium cursor-pointer hover:underline">
-                Sign up
-              </span>
+            <Link to="/signinpage" className="text-blue-600 font-medium hover:underline">
+              Sign up
+            </Link>
             </p>
           </form>
         </div>
