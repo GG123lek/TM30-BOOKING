@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Layout from './assets/components/Layout';
 import DiscoverPage from './assets/components/Pages/DiscoverPage';
 import FavoritePage from './assets/components/Pages/FavoritePage';
@@ -10,11 +10,11 @@ import ForgotPassword from './assets/components/ForgotPassword';
 import PasswordReset from './assets/components/PasswordReset';
 import SetNewPassword from './assets/components/SetNewPassword';
 import Loader from './assets/components/Loader';
+import BookingContainer from './assets/components/BookingContainer';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -36,6 +36,10 @@ function App() {
             <Route path="favorite" element={<FavoritePage />} />
             <Route path="booking" element={<BookingPage />} />
           </Route>
+
+          
+          <Route path="/booking/:id" element={<BookingContainer />} />
+
           <Route path="*" element={<Navigate to="/discover" />} />
         </>
       ) : (

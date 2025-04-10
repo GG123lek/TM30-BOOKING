@@ -38,7 +38,7 @@ const LogIn = ({ setIsAuthenticated }) => {
       }
 
       const data = await response.json();
-      localStorage.setItem("token", data.access_token || data.token);
+      localStorage.setItem("token", data.access);
       localStorage.setItem("username", username);
       localStorage.setItem("userData", JSON.stringify(data.user || {}));
 

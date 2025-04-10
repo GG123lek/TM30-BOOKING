@@ -1,115 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoFilterOutline } from "react-icons/io5";
 import ApartmentCard from "../../components/ApartmentCard"; 
 import QuickViewPage from "../../components/QuickViewPage"; 
 import QuickViewPageTwo from "../../components/QuickViewPageTwo"; 
+import { useNavigate, useParams } from 'react-router-dom';
 
-import houseOne from "../../../assets/sulephototwo.png";
-import houseTwo from "../../../assets/sulephotoone.png";
-import houseThree from "../../../assets/sulephotothree.png";
-import houseFour from "../../../assets/sulephotofour.png";
-import houseFive from "../../../assets/sulephotofive.png";
-import houseSix from "../../../assets/sulephotosix.png";
-
-import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
-
- const DiscoverPage = () => {
+const DiscoverPage = () => {
   const [activeTab, setActiveTab] = useState("all-apartment");
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [isQuickViewTwoOpen, setIsQuickViewTwoOpen] = useState(false);
+  const [apartments, setApartments] = useState([]);
 
-  const apartments = [
-    {
-      image: houseOne,
-      name: "The Regen House",
-      price: 20000,
-      location: "Los Angeles, USA",
-      rating: 4,
-      reviews: 130,
-      features: [
-        { icon: <FaBed className="text-lg" />, label: " 3 Beds" },
-        { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
-        { icon: <FaSwimmingPool className="text-lg" />, label: "Swimming Pool" },
-      ],
-      tag: "Top rated",
-    },
-    {
-      image: houseTwo,
-      name: "Shakira Sherafin House",
-      price: 45000,
-      location: "New York City, USA",
-      rating: 5,
-      reviews: 130,
-      features: [
-        { icon: <FaBed className="text-lg" />, label: "5 Beds" },
-        { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
-        { icon: <FaSwimmingPool className="text-lg" />, label: "Swimming Pool" },
-      ],
-      tag: "Newly Added",
-    },
-    {
-      image: houseThree,
-      name: "White House",
-      price: 120000,
-      location: "Los Angeles, USA",
-      rating: 4,
-      reviews: 130,
-      features: [
-        { icon: <FaBed className="text-lg" />, label: "11 Beds" },
-        { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
-        { icon: <FaSwimmingPool className="text-lg" />, label: "Swimming Pool" },
-      ],
-      tag: "Top rated",
-    },
-    {
-      image: houseFour,
-      name: "Obi’s House",
-      price: 10000,
-      location: "Miami, USA",
-      rating: 4,
-      reviews: 77,
-      features: [
-        { icon: <FaBed className="text-lg" />, label: "3 Beds" },
-        { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
-        { icon: <FaSwimmingPool className="text-lg" />, label: "Swimming Pool" },
-      ],
-      tag: "Top rated",
-    },
-    {
-      image: houseFive,
-      name: "TM30 House",
-      price: 20000,
-      location: "Los Angeles, USA",
-      rating: 4,
-      reviews: 130,
-      features: [
-        { icon: <FaBed className="text-lg" />, label: "2 Beds" },
-        { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
-        { icon: <FaSwimmingPool className="text-lg" />, label: "Swimming Pool" },
-      ],
-      tag: "Top rated",
-    },
-    {
-      image: houseSix,
-      name: "Prima’s House",
-      price: 75000,
-      location: "New York City, USA",
-      rating: 4,
-      reviews: 135,
-      features: [
-        { icon: <FaBed className="text-lg" />, label: "5 Beds" },
-        { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
-        { icon: <FaSwimmingPool className="text-lg" />, label: "Swimming Pool" },
-      ],
-      tag: "Top rated",
-    },
-  ];
+  const navigate = useNavigate();
 
-  // Filter the apartments based on the active tab
+
+  const handleCardClick = () => {
+    navigate(`/booking/${id}`);
+  };
+
+  useEffect(() => {
+    const fetchApartments = async () => {
+      const token = localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, 
+      };
+    
+      try {
+        const response = await fetch('https://home4u-3.onrender.com/reservation/?homepage=home', { headers });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        const formatted = data.results.map((item) => ({
+          id: item.id,
+          image: item.images[0]?.image_url || "", 
+          name: item.house,
+          price: item.price,
+          location: item.address,
+          rating: Math.round(item.average_rating) || 0,
+          reviews: item.ratings_reviews,
+          tag: item.status,
+          features: [
+            item.wifi ? { icon: <i className="fa fa-wifi"></i>, label: "Wi-Fi" } : null,
+            item.swimmingpool ? { icon: <i className="fa fa-swimmer"></i>, label: "Pool" } : null,
+            { icon: <i className="fa fa-bed"></i>, label: `${item.beds} Beds` },
+          ].filter(Boolean),
+        }));
+
+        setApartments(formatted);
+      } catch (error) {
+        console.error("Fetching apartments failed:", error);
+      }
+    };
+    
+
+    fetchApartments();
+  }, []);
+
+ 
   const filteredApartments = apartments.filter(apartment => 
     activeTab === "all-apartment" || 
-    (activeTab === "top-rated" && apartment.tag === "Top rated") || 
-    (activeTab === "newly-added" && apartment.tag === "Newly Added")
+    (activeTab === "top-rated" && apartment.status === "Top rated") || 
+    (activeTab === "newly-added" && apartment.status === "Newly added")
   );
 
   return (
@@ -120,7 +74,7 @@ import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
         <QuickViewPageTwo onBack={() => setIsQuickViewTwoOpen(false)} />
       ) : (
         <>
-          {/* Top Button Section */}
+         
           <div className="w-full bg-white py-4 px-6 flex justify-between items-center">
             <div className="flex space-x-4">
               {["all-apartment", "top-rated", "newly-added"].map((tab) => (
@@ -141,7 +95,7 @@ import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
             </div>
           </div>
           
-          {/* Card Section */}
+         
           <div className="w-full flex-grow bg-[#FAFAFA] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredApartments.map((apartment, index) => (
               <ApartmentCard 

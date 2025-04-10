@@ -89,7 +89,7 @@ const Signup = () => {
         throw new Error(data.detail || "Registration failed");
       }
 
-      // Show success modal
+      
       setShowSuccessModal(true);
 
       // Store user data (without auto-login)

@@ -17,6 +17,8 @@ const BookingContainer = ({ onBack }) => {
     }
   
 
+    const params = useParam()
+    console.log(params)
   return (
     <div className="bg-[#FAFAFA] min-h-screen">
       <div className="bg-white shadow-md border-b border-[#D9D9D9] py-4 px-6 flex items-center justify-center relative">
