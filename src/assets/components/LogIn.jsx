@@ -41,6 +41,7 @@ const LogIn = ({ setIsAuthenticated }) => {
       localStorage.setItem("token", data.access);
       localStorage.setItem("username", username);
       localStorage.setItem("userData", JSON.stringify(data.user || {}));
+      
 
       setIsAuthenticated(true);
       setShowSuccessModal(true);

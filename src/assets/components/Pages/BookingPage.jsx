@@ -16,6 +16,7 @@ import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
 const BookingPage = () => {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [isQuickViewTwoOpen, setIsQuickViewTwoOpen] = useState(false);
+  const [selectedApartment, setSelectedApartment] = useState(null); // New state for the selected apartment
 
   const apartments = [
     {
@@ -26,7 +27,7 @@ const BookingPage = () => {
       rating: 4,
       reviews: 130,
       features: [
-        { icon: <FaBed className="text-lg" />, label: " 3 Beds" },
+        { icon: <FaBed className="text-lg" />, label: "3 Beds" },
         { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
         { icon: <FaSwimmingPool className="text-lg" />, label: "Swimming Pool" },
       ],
@@ -40,7 +41,7 @@ const BookingPage = () => {
       reviews: 130,
       features: [
         { icon: <FaBed className="text-lg" />, label: "5 Beds" },
-         { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
+        { icon: <FaWifi className="text-lg" />, label: "WiFi Available" },
         { icon: <FaSwimmingPool className="text-lg" />, label: "Swimming Pool" },
       ],
     },
@@ -98,13 +99,23 @@ const BookingPage = () => {
     },
   ];
 
+  const handleQuickViewOpen = (apartment) => {
+    setSelectedApartment(apartment);  // Set selected apartment
+    if (apartments.indexOf(apartment) < 3) {
+      setIsQuickViewOpen(true);
+    } else {
+      setIsQuickViewTwoOpen(true);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen overflow-auto">
-      {isQuickViewOpen ? (
-        <QuickViewPage onBack={() => setIsQuickViewOpen(false)} />
-      ) : isQuickViewTwoOpen ? (
-        <QuickViewPageTwo onBack={() => setIsQuickViewTwoOpen(false)} />
-      ) : (
+                {isQuickViewOpen ? (
+          <QuickViewPage id={selectedReservationId} onBack={() => setIsQuickViewOpen(false)} />
+        ) : isQuickViewTwoOpen ? (
+          <QuickViewPageTwo id={selectedReservationId} onBack={() => setIsQuickViewTwoOpen(false)} />
+        ) : (
+
         <>
           {/* Title Section */}
           <div className="w-full bg-white py-4 px-6 flex justify-between items-center">
@@ -112,15 +123,15 @@ const BookingPage = () => {
           </div>
           
           {/* Card Section */}
-          <div className="w-full flex-grow bg-[#FAFAFA] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {apartments.map((apartment, index) => (
-              <ApartmentCard 
-                key={index} 
-                {...apartment}
-                onQuickView={() => index < 3 ? setIsQuickViewOpen(true) : setIsQuickViewTwoOpen(true)} 
-              />
-            ))}
-          </div>
+                  <ApartmentCard 
+          key={index} 
+          {...apartments}
+          onQuickView={() => {
+            setSelectedReservationId(apartment.id); 
+            index < 3 ? setIsQuickViewOpen(true) : setIsQuickViewTwoOpen(true);
+          }} 
+        />
+
         </>
       )}
     </div>

@@ -1,7 +1,6 @@
 import React from "react";
 import { FaRegHeart } from "react-icons/fa6";
 import { AiFillStar } from "react-icons/ai";
-import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
 
 const ApartmentCard = ({
   image,
@@ -14,6 +13,10 @@ const ApartmentCard = ({
   tag,
   onQuickView,
 }) => {
+  const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   return (
     <div className="h-[400px] bg-white rounded-lg shadow-md overflow-hidden relative group hover:shadow-lg transition-all duration-300 m-4">
       <div className="relative flex flex-col p-4 transition-all duration-300 group-hover:translate-y-[-10px]">
@@ -36,7 +39,7 @@ const ApartmentCard = ({
         <div className="mt-4">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
-            <p className="text-lg font-semibold text-black-600">${price}</p>
+            <p className="text-lg font-semibold text-black-600">${formatPrice(price)}</p>
           </div>
           <p className="text-gray-500 text-sm">{location}</p>
 
@@ -45,9 +48,7 @@ const ApartmentCard = ({
               {[...Array(5)].map((_, index) => (
                 <AiFillStar
                   key={index}
-                  className={
-                    index < rating ? "text-yellow-400" : "text-gray-300"
-                  }
+                  className={index < rating ? "text-yellow-400" : "text-gray-300"}
                 />
               ))}
             </div>
@@ -55,18 +56,16 @@ const ApartmentCard = ({
           </div>
 
           <div className="flex justify-between items-center text-gray-600 text-sm mt-3">
-            {features &&
-              features.map((feature, index) => (
-                <div key={index} className="flex items-center space-x-1">
-                  {feature.icon}
-                  <span>{feature.label}</span>
-                </div>
-              ))}
+            {features.map((feature, index) => (
+              <div key={index} className="flex items-center space-x-1">
+                {feature.icon}
+                <span>{feature.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Only Quick View Button */}
       <button
         onClick={onQuickView}
         className="absolute bottom-2 left-0 w-full bg-blue-600 text-white font-semibold px-4 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer"

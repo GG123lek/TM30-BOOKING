@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { IoFilterOutline } from "react-icons/io5";
 import ApartmentCard from "../../components/ApartmentCard"; 
-import QuickViewPage from "../../components/QuickViewPage"; 
+import QuickViewPage from "../QuickViewPage"; 
 import QuickViewPageTwo from "../../components/QuickViewPageTwo"; 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+import { FaWifi, FaSwimmingPool, FaBed } from "react-icons/fa";
 
 const DiscoverPage = () => {
   const [activeTab, setActiveTab] = useState("all-apartment");
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [isQuickViewTwoOpen, setIsQuickViewTwoOpen] = useState(false);
   const [apartments, setApartments] = useState([]);
+  const [selectedReservationId, setSelectedReservationId] = useState(null);
 
   const navigate = useNavigate();
-
-
-  const handleCardClick = () => {
-    navigate(`/booking/${id}`);
-  };
 
   useEffect(() => {
     const fetchApartments = async () => {
@@ -25,14 +24,14 @@ const DiscoverPage = () => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`, 
       };
-    
+
       try {
         const response = await fetch('https://home4u-3.onrender.com/reservation/?homepage=home', { headers });
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        
+
         const formatted = data.results.map((item) => ({
           id: item.id,
           image: item.images[0]?.image_url || "", 
@@ -43,9 +42,9 @@ const DiscoverPage = () => {
           reviews: item.ratings_reviews,
           tag: item.status,
           features: [
-            item.wifi ? { icon: <i className="fa fa-wifi"></i>, label: "Wi-Fi" } : null,
-            item.swimmingpool ? { icon: <i className="fa fa-swimmer"></i>, label: "Pool" } : null,
-            { icon: <i className="fa fa-bed"></i>, label: `${item.beds} Beds` },
+            item.wifi ? { icon: <FaWifi />, label: "Wi-Fi" } : null,
+            item.swimmingpool ? { icon: <FaSwimmingPool />, label: "Pool" } : null,
+            { icon: <FaBed />, label: `${item.beds} Beds` },
           ].filter(Boolean),
         }));
 
@@ -54,12 +53,10 @@ const DiscoverPage = () => {
         console.error("Fetching apartments failed:", error);
       }
     };
-    
 
     fetchApartments();
   }, []);
 
- 
   const filteredApartments = apartments.filter(apartment => 
     activeTab === "all-apartment" || 
     (activeTab === "top-rated" && apartment.status === "Top rated") || 
@@ -69,12 +66,17 @@ const DiscoverPage = () => {
   return (
     <div className="flex flex-col min-h-screen overflow-auto">
       {isQuickViewOpen ? (
-        <QuickViewPage onBack={() => setIsQuickViewOpen(false)} />
+        <QuickViewPage 
+          id={selectedReservationId} 
+          onBack={() => setIsQuickViewOpen(false)} 
+        />
       ) : isQuickViewTwoOpen ? (
-        <QuickViewPageTwo onBack={() => setIsQuickViewTwoOpen(false)} />
+        <QuickViewPageTwo 
+          id={selectedReservationId} 
+          onBack={() => setIsQuickViewTwoOpen(false)} 
+        />
       ) : (
         <>
-         
           <div className="w-full bg-white py-4 px-6 flex justify-between items-center">
             <div className="flex space-x-4">
               {["all-apartment", "top-rated", "newly-added"].map((tab) => (
@@ -94,14 +96,16 @@ const DiscoverPage = () => {
               <p className="text-gray-700">Filter</p>
             </div>
           </div>
-          
-         
+
           <div className="w-full flex-grow bg-[#FAFAFA] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredApartments.map((apartment, index) => (
               <ApartmentCard 
                 key={index} 
                 {...apartment}
-                onQuickView={() => index < 3 ? setIsQuickViewOpen(true) : setIsQuickViewTwoOpen(true)} 
+                onQuickView={() => {
+                  setSelectedReservationId(apartment.id);
+                  index < 3 ? setIsQuickViewOpen(true) : setIsQuickViewTwoOpen(true);
+                }}
               />
             ))}
           </div>

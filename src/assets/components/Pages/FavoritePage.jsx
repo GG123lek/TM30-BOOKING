@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoFilterOutline } from "react-icons/io5";
 import ApartmentCard from "../../components/ApartmentCard"; 
-import QuickViewPage from "../../components/QuickViewPage"; 
+import QuickViewPage from "../QuickViewPage"; 
 import QuickViewPageTwo from "../../components/QuickViewPageTwo"; 
 
 import houseOne from "../../../assets/favimage.png";

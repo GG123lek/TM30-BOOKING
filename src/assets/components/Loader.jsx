@@ -1,15 +1,16 @@
+// src/components/Loader.jsx
+import React from "react";
+import { FaHome } from "react-icons/fa"; // Import home icon from react-icons
 
-import React from 'react';
-import { FaHome } from 'react-icons/fa';
-
-const Loader = () => (
-  <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50">
-    <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
-    <div className="flex items-center space-x-2 mt-4">
-      <FaHome className="text-black text-2xl" />
-      <h3 className="text-2xl font-bold text-gray-800">Home4U</h3>
+const Loader = () => {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-white">
+      <div className="flex items-center space-x-2 animate-pulse text-blue-700 drop-shadow-lg">
+        <FaHome className="text-4xl font-bold" />
+        <span className="text-xl font-bold">Home4U</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Loader;
