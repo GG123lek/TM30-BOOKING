@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import { IoArrowBack, IoShareSocial } from "react-icons/io5";
 import { FaBed, FaWifi, FaSwimmingPool, FaStar } from "react-icons/fa";
@@ -6,13 +6,60 @@ import { IoIosArrowDown } from "react-icons/io";
 import content from "../../assets/contentimage.png";
 import BookingContainer from "./BookingContainer";
 
+// GuestDropdown component remains unchanged
+const GuestDropdown = ({ guests, setGuests }) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSelect = (value) => {
+    setGuests(value);
+    setOpen(false);
+  };
+
+  return (
+    <div className="relative w-full" ref={ref}>
+      <div
+        onClick={() => setOpen(!open)}
+        className="p-2 border rounded-md cursor-pointer flex justify-between items-center"
+      >
+        <span>{guests ? `${guests} Guest${guests > 1 ? 's' : ''}` : "Select guests"}</span>
+        <IoIosArrowDown className="text-gray-500" />
+      </div>
+
+      {open && (
+        <ul className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-md max-h-48 overflow-y-auto">
+          {[...Array(10)].map((_, i) => (
+            <li
+              key={i + 1}
+              onClick={() => handleSelect(i + 1)}
+              className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+            >
+              {i + 1} Guest{i + 1 > 1 ? "s" : ""}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+// Main component
 const QuickViewPageTwo = ({ id, onBack }) => {
-  const [guestDropdown, setGuestDropdown] = useState(false);
   const [isBookingPage, setIsBookingPage] = useState(false);
   const [reservationDetails, setReservationDetails] = useState(null);
   const [error, setError] = useState(null);
 
-  // New state for form fields
+  // Form state
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState("");
@@ -58,8 +105,9 @@ const QuickViewPageTwo = ({ id, onBack }) => {
       </button>
 
       <div className="flex justify-between items-start">
+        {/* Left Column */}
         <div className="w-[50%]">
-          <img src={content} alt="Apartment" className="mt-4 mb-4 w-full rounded-md" />
+          <img src={content} alt="" className="mt-4 mb-4 w-full rounded-md" />
           <div className="flex items-center justify-between mt-2">
             <div className="flex space-x-2">
               <div className="bg-blue-500 text-white px-2 py-1 text-xs rounded-md font-medium">Newly Added</div>
@@ -94,7 +142,7 @@ const QuickViewPageTwo = ({ id, onBack }) => {
           </div>
         </div>
 
-        {/* Booking Section */}
+        {/* Right Column - Booking Form */}
         <div className="w-[40%] bg-white p-6 shadow-md rounded-md flex flex-col min-h-[550px]">
           <div className="flex justify-between items-center mb-4">
             <div>
@@ -105,7 +153,6 @@ const QuickViewPageTwo = ({ id, onBack }) => {
           </div>
 
           <form className="flex flex-col space-y-4 flex-grow">
-            {/* Form Inputs */}
             <div className="flex space-x-4">
               <div className="flex flex-col w-1/2">
                 <label className="text-sm font-medium mb-1">Check-in</label>
@@ -129,19 +176,7 @@ const QuickViewPageTwo = ({ id, onBack }) => {
 
             <div className="flex flex-col w-full">
               <label className="text-sm font-medium mb-1">No. of Guests</label>
-              <div className="relative">
-                <input 
-                  type="number" 
-                  value={guests} 
-                  onChange={(e) => setGuests(e.target.value)} 
-                  placeholder="Enter guests"
-                  className="p-2 border rounded-md w-full" 
-                />
-                <IoIosArrowDown 
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"
-                  onClick={() => setGuestDropdown(!guestDropdown)}
-                />
-              </div>
+              <GuestDropdown guests={guests} setGuests={setGuests} />
             </div>
 
             <div className="mt-auto">
