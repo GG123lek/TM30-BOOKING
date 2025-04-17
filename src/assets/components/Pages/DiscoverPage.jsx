@@ -4,8 +4,6 @@ import ApartmentCard from "../../components/ApartmentCard";
 import QuickViewPage from "../QuickViewPage"; 
 import QuickViewPageTwo from "../../components/QuickViewPageTwo"; 
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
 import { FaWifi, FaSwimmingPool, FaBed } from "react-icons/fa";
 
 const DiscoverPage = () => {
@@ -14,6 +12,7 @@ const DiscoverPage = () => {
   const [isQuickViewTwoOpen, setIsQuickViewTwoOpen] = useState(false);
   const [apartments, setApartments] = useState([]);
   const [selectedReservationId, setSelectedReservationId] = useState(null);
+  const [selectedApartment, setSelectedApartment] = useState(null); // ✅ Added state for selected apartment
 
   const navigate = useNavigate();
 
@@ -71,9 +70,9 @@ const DiscoverPage = () => {
           onBack={() => setIsQuickViewOpen(false)} 
         />
       ) : isQuickViewTwoOpen ? (
-        <QuickViewPageTwo 
-          id={selectedReservationId} 
-          onBack={() => setIsQuickViewTwoOpen(false)} 
+        <QuickViewPageTwo
+          apartment={selectedApartment} // ✅ Pass full apartment data to QuickViewPageTwo
+          onBack={() => setIsQuickViewTwoOpen(false)}
         />
       ) : (
         <>
@@ -100,10 +99,11 @@ const DiscoverPage = () => {
           <div className="w-full flex-grow bg-[#FAFAFA] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredApartments.map((apartment, index) => (
               <ApartmentCard 
-                key={index} 
+                key={apartment.id} 
                 {...apartment}
                 onQuickView={() => {
                   setSelectedReservationId(apartment.id);
+                  setSelectedApartment(apartment); // ✅ Set the selected apartment for QuickViewPageTwo
                   index < 3 ? setIsQuickViewOpen(true) : setIsQuickViewTwoOpen(true);
                 }}
               />

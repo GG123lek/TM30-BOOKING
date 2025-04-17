@@ -6,7 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import content from "../../assets/contentimage.png";
 import BookingContainer from "./BookingContainer";
 
-// GuestDropdown component remains unchanged
+// Custom Guest Dropdown Component
 const GuestDropdown = ({ guests, setGuests }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
@@ -53,11 +53,11 @@ const GuestDropdown = ({ guests, setGuests }) => {
   );
 };
 
-// Main component
 const QuickViewPageTwo = ({ id, onBack }) => {
   const [isBookingPage, setIsBookingPage] = useState(false);
   const [reservationDetails, setReservationDetails] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);  // ✅ Loading state
 
   // Form state
   const [checkIn, setCheckIn] = useState("");
@@ -66,11 +66,14 @@ const QuickViewPageTwo = ({ id, onBack }) => {
 
   useEffect(() => {
     const fetchReservationDetails = async () => {
+      setLoading(true);  // Start loading
       try {
         const response = await axios.get(`https://home4u-3.onrender.com/reservation/${id}/`);
         setReservationDetails(response.data);
+        setLoading(false);  // Stop loading when data is fetched
       } catch (error) {
         setError('Failed to fetch data. Please try again later.');
+        setLoading(false);  // Stop loading in case of error
         console.error('Error fetching reservation details:', error);
       }
     };
@@ -89,8 +92,9 @@ const QuickViewPageTwo = ({ id, onBack }) => {
     );
   }
 
+  if (loading) return <div>Loading...</div>;  // ✅ Loading feedback
   if (error) return <div>{error}</div>;
-  if (!reservationDetails) return <div>Loading...</div>;
+  if (!reservationDetails) return <div>No details available</div>;
 
   const { posts } = reservationDetails;
 
@@ -105,7 +109,7 @@ const QuickViewPageTwo = ({ id, onBack }) => {
       </button>
 
       <div className="flex justify-between items-start">
-        {/* Left Column */}
+        {/* Left Content */}
         <div className="w-[50%]">
           <img src={content} alt="" className="mt-4 mb-4 w-full rounded-md" />
           <div className="flex items-center justify-between mt-2">
@@ -142,7 +146,7 @@ const QuickViewPageTwo = ({ id, onBack }) => {
           </div>
         </div>
 
-        {/* Right Column - Booking Form */}
+        {/* Booking Section */}
         <div className="w-[40%] bg-white p-6 shadow-md rounded-md flex flex-col min-h-[550px]">
           <div className="flex justify-between items-center mb-4">
             <div>
@@ -181,8 +185,8 @@ const QuickViewPageTwo = ({ id, onBack }) => {
 
             <div className="mt-auto">
               <div className="flex justify-between text-lg mt-4">
-                <span>${posts.price} x 3 months</span>
-                <span className="text-gray-600 font-bold">${parseFloat(posts.price) * 3}</span>
+                <span>${dailyPrice.toFixed(2)} x 3 days</span>
+                <span className="text-gray-600 font-bold">${(dailyPrice * 3).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-lg">
                 <span className="text-[#344054]">Home4U service fee</span>
@@ -193,7 +197,7 @@ const QuickViewPageTwo = ({ id, onBack }) => {
 
               <div className="flex justify-between text-lg font-bold">
                 <span>Total</span>
-                <span className="text-gray-600">${parseFloat(posts.price) * 3 + 50}</span>
+                <span className="text-gray-600">${(dailyPrice * 3 + 50).toFixed(2)}</span>
               </div>
             </div>
 

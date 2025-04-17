@@ -9,6 +9,7 @@ const FavoritePage = () => {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [isQuickViewTwoOpen, setIsQuickViewTwoOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [selectedApartment, setSelectedApartment] = useState(null); // ✅ NEW
   const [apartments, setApartments] = useState([]);
 
   useEffect(() => {
@@ -31,7 +32,6 @@ const FavoritePage = () => {
 
         const data = await response.json();
 
-        // Show all apartments without filtering
         const formatted = data.results.map((item) => ({
           id: item.id,
           image: item.images[0]?.image_url || "",
@@ -59,10 +59,13 @@ const FavoritePage = () => {
   return (
     <div className="flex flex-col min-h-screen overflow-auto">
       {isQuickViewOpen ? (
-        <QuickViewPage onBack={() => setIsQuickViewOpen(false)} />
+        <QuickViewPage 
+          id={selectedId}
+          onBack={() => setIsQuickViewOpen(false)} 
+        />
       ) : isQuickViewTwoOpen ? (
         <QuickViewPageTwo
-          id={selectedId}
+          apartment={selectedApartment}
           onBack={() => setIsQuickViewTwoOpen(false)}
         />
       ) : (
@@ -82,6 +85,7 @@ const FavoritePage = () => {
                 {...apartment}
                 onQuickView={() => {
                   setSelectedId(apartment.id);
+                  setSelectedApartment(apartment); // ✅ Set the selected apartment too
                   index < 3
                     ? setIsQuickViewOpen(true)
                     : setIsQuickViewTwoOpen(true);

@@ -8,7 +8,7 @@ import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
 const BookingPage = () => {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [isQuickViewTwoOpen, setIsQuickViewTwoOpen] = useState(false);
-  // const [selectedApartment, setSelectedApartment] = useState(null);
+  const [selectedApartment, setSelectedApartment] = useState(null); // ✅ UNCOMMENTED
   const [selectedApartmentId, setSelectedApartmentId] = useState(null);
 
   const [apartments, setApartments] = useState([]);
@@ -60,9 +60,9 @@ const BookingPage = () => {
   return (
     <div className="flex flex-col min-h-screen overflow-auto">
       {isQuickViewOpen ? (
-        <QuickViewPage
-          apartment={selectedApartment}
-          onBack={() => setIsQuickViewOpen(false)}
+        <QuickViewPage 
+          id={selectedApartmentId}
+          onBack={() => setIsQuickViewOpen(false)} 
         />
       ) : isQuickViewTwoOpen ? (
         <QuickViewPageTwo
@@ -88,9 +88,9 @@ const BookingPage = () => {
                 {...apartment}
                 onQuickView={() => {
                   setSelectedApartmentId(apartment.id);
+                  setSelectedApartment(apartment); // ✅ ADDED
                   index < 3 ? setIsQuickViewOpen(true) : setIsQuickViewTwoOpen(true);
                 }}
-                
               />
             ))}
           </div>
