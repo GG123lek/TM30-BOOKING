@@ -4,7 +4,7 @@ import { FiAlertCircle } from "react-icons/fi";
 
 const FormPage = () => {
   return (
-    <div className="p-6 flex flex-col items-start space-y-16">
+    <div className=" flex flex-col items-start space-y-16">
       
       {/* Section: Enter Your Details */}
       <div className="space-y-4 w-full max-w-5xl">

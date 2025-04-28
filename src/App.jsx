@@ -8,6 +8,7 @@ import Loader from "./assets/components/Loader";
 import BookingPage from "./assets/components/Pages/BookingPage";
 import DetailPage from "./assets/components/DetailPage";
 import EmptyPage from "./assets/components/EmptyPage"
+import PaymentCheckout from "./assets/components/PaymentCheckout";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,7 @@ function App() {
             <Route path="booking" element={<BookingPage />} />
             <Route path="apartment/:id" element={<DetailPage />} />
             <Route path="/empty" element={<EmptyPage />} />
+            <Route path="/checkout" element={<PaymentCheckout />} />
             <Route path="*" element={<Navigate to="/discover" />} />
           </Route>
         </>
