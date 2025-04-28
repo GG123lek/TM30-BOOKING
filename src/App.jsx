@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
-import Layout from './assets/components/Layout';
-import DiscoverPage from './assets/components/Pages/DiscoverPage';
-import FavoritePage from './assets/components/Pages/FavoritePage';
-import BookingPage from './assets/components/Pages/BookingPage';
-import LogIn from './assets/components/LogIn';
-import Signup from './assets/components/SignUp';
-import ForgotPassword from './assets/components/ForgotPassword';
-import PasswordReset from './assets/components/PasswordReset';
-import SetNewPassword from './assets/components/SetNewPassword';
-import Loader from './assets/components/Loader';
-import BookingContainer from './assets/components/BookingContainer';
+// App.jsx
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./assets/components/Layout";
+import DiscoverPage from "./assets/components/Pages/DiscoverPage";
+import FavoritePage from "./assets/components/Pages/FavoritePage";
+import Loader from "./assets/components/Loader";
+import BookingPage from "./assets/components/Pages/BookingPage";
+import DetailPage from "./assets/components/DetailPage";
+import EmptyPage from "./assets/components/EmptyPage"
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
     }
@@ -35,25 +32,16 @@ function App() {
             <Route path="discover" element={<DiscoverPage />} />
             <Route path="favorite" element={<FavoritePage />} />
             <Route path="booking" element={<BookingPage />} />
+            <Route path="apartment/:id" element={<DetailPage />} />
+            <Route path="/empty" element={<EmptyPage />} />
+            <Route path="*" element={<Navigate to="/discover" />} />
           </Route>
-
-          
-          <Route path="/booking/:id" element={<BookingContainer />} />
-
-          <Route path="*" element={<Navigate to="/discover" />} />
         </>
       ) : (
-        <>
-          <Route path="/login" element={<LogIn setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/password-reset" element={<PasswordReset />} />
-          <Route path="/set-new-password" element={<SetNewPassword />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </>
+        <Route path="*" element={<Navigate to="/login" />} />
       )}
     </Routes>
   );
 }
 
-export default App;
+export default App; // Ensure you have this line!

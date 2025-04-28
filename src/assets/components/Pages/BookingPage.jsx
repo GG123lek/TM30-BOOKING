@@ -1,101 +1,157 @@
-import React, { useState, useEffect } from "react";
-import { IoFilterOutline } from "react-icons/io5";
-import ApartmentCard from "../../components/ApartmentCard";
-import QuickViewPage from "../../components/QuickViewPage";
-import QuickViewPageTwo from "../../components/QuickViewPageTwo";
-import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
+import React from "react";
+import { FaWifi, FaSwimmingPool, FaBed } from "react-icons/fa";
+import imgOne from "../../../assets/sulephotoone.png";
+import imgTwo from "../../../assets/sulephototwo.png";
+import imgThree from "../../../assets/lekphotothree.png";
+import imgFour from "../../../assets/sulephotofour.png";
+import imgFive from "../../../assets/sulephotofive.png";
+import imgSix from "../../../assets/sulephotosix.png";
 
 const BookingPage = () => {
-  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
-  const [isQuickViewTwoOpen, setIsQuickViewTwoOpen] = useState(false);
-  const [selectedApartment, setSelectedApartment] = useState(null); // ✅ UNCOMMENTED
-  const [selectedApartmentId, setSelectedApartmentId] = useState(null);
-
-  const [apartments, setApartments] = useState([]);
-
-  useEffect(() => {
-    const fetchApartments = async () => {
-      const token = localStorage.getItem("token");
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-
-      try {
-        const response = await fetch(
-          "https://home4u-3.onrender.com/reservation/?homepage=home",
-          { headers }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        const formatted = data.results.map((item) => ({
-          id: item.id,
-          image: item.images[0]?.image_url || "",
-          name: item.house,
-          price: item.price,
-          location: item.address,
-          rating: Math.round(item.average_rating) || 0,
-          reviews: item.ratings_reviews,
-          features: [
-            item.wifi ? { icon: <FaWifi className="text-lg" />, label: "Wi-Fi" } : null,
-            item.swimmingpool ? { icon: <FaSwimmingPool className="text-lg" />, label: "Pool" } : null,
-            { icon: <FaBed className="text-lg" />, label: `${item.beds} Beds` },
-          ].filter(Boolean),
-        }));
-
-        setApartments(formatted);
-      } catch (error) {
-        console.error("Error fetching booking apartments:", error);
-      }
-    };
-
-    fetchApartments();
-  }, []);
+  const bookings = [
+    {
+      id: 1,
+      name: "The Regen House",
+      location: "Los Angeles, USA",
+      price: "$20,000",
+      rating: 5,
+      reviews: 130,
+      image: imgOne,
+      features: [
+       
+        { icon: <FaBed />, label: "3 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+      ],
+    },
+    {
+      id: 2,
+      name: "Shakira Sherafin House",
+      location: "New York City, USA",
+      price: "$45,000",
+      rating: 4,
+      reviews: 138,
+      image: imgTwo,
+      features: [
+        
+        { icon: <FaBed />, label: "5 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+      ],
+    },
+    {
+      id: 3,
+      name: "The White House",
+      location: "Los Angeles, USA",
+      price: "$120,000",
+      rating: 5,
+      reviews: 130,
+      image: imgThree,
+      features: [
+        { icon: <FaBed />, label: "11 Beds" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+        { icon: <FaWifi />, label: "Wi-Fi" }
+      ],
+    },
+    {
+      id: 4,
+      name: "Obi's House",
+      location: "Miami, USA",
+      price: "$10,000",
+      rating: 4,
+      reviews: 77,
+      image: imgFour,
+      features: [
+        { icon: <FaBed />, label: "3 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },   
+      ],
+    },
+    {
+      id: 5,
+      name: "TM30 House",
+      location: "Los Angeles, USA",
+      price: "$20,000",
+      rating: 5,
+      reviews: 130,
+      image: imgFive,
+      features: [
+        { icon: <FaBed />, label: "2 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+        
+      ],
+    },
+    {
+      id: 6,
+      name: "Prima's House",
+      location: "Nashville, USA",
+      price: "$75,000",
+      rating: 3,
+      reviews: 135,
+      image: imgSix,
+      features: [
+        { icon: <FaBed />, label: "5 Bed" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+      ],
+    },
+  ];
 
   return (
-    <div className="flex flex-col min-h-screen overflow-auto">
-      {isQuickViewOpen ? (
-        <QuickViewPage 
-          id={selectedApartmentId}
-          onBack={() => setIsQuickViewOpen(false)} 
-        />
-      ) : isQuickViewTwoOpen ? (
-        <QuickViewPageTwo
-          apartment={selectedApartment}
-          onBack={() => setIsQuickViewTwoOpen(false)}
-        />
-      ) : (
-        <>
-          {/* Title Section */}
-          <div className="w-full bg-white py-4 px-6 flex justify-between items-center">
-            <h2 className="text-xl font-semibold text-gray-700">Recent Bookings</h2>
-            <div className="flex items-center px-6 py-2 bg-[#F5F7F9] rounded-md cursor-pointer">
-              <IoFilterOutline className="text-gray-600 text-lg mr-2" />
-              <p className="text-gray-700">Filter</p>
-            </div>
-          </div>
-
-          {/* Card Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-            {apartments.map((apartment, index) => (
-              <ApartmentCard
-                key={apartment.id}
-                {...apartment}
-                onQuickView={() => {
-                  setSelectedApartmentId(apartment.id);
-                  setSelectedApartment(apartment); // ✅ ADDED
-                  index < 3 ? setIsQuickViewOpen(true) : setIsQuickViewTwoOpen(true);
-                }}
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] p-6">
+      <h1 className="text-2xl  mb-6"> Recent Bookings</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {bookings.map((item) => (
+          <div
+            key={item.id}
+            className="group bg-white rounded-lg shadow-sm overflow-hidden relative hover:shadow-lg transition-all"
+          >
+            {/* Image with shrinking height on hover */}
+            <div className="h-[288px] group-hover:h-[240px] overflow-hidden transition-all duration-300">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-full object-cover transition-all duration-300"
               />
-            ))}
+            </div>
+
+            {/* Text Content that moves up */}
+            <div className="p-4 transition-all duration-300 group-hover:-translate-y-4">
+              <div className="flex justify-between items-center mb-1">
+                <h2 className="text-lg font-semibold">{item.name}</h2>
+                <p className="text-md font-bold text-gray-800">{item.price}</p>
+              </div>
+
+              <p className="text-gray-600 mb-2">{item.location}</p>
+
+              <div className="flex mb-1 space-x-1 text-yellow-400">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i}>{i < item.rating ? "★" : "☆"}</span>
+                ))}
+              </div>
+
+              <p className="text-sm text-gray-500 mb-3">
+                ({item.reviews} reviews)
+              </p>
+
+              <div className="flex justify-between text-sm text-gray-600 mb-3">
+                {item.features.map((feature, index) => (
+                  <div key={index} className="flex items-center gap-1">
+                    {feature.icon}
+                    <span>{feature.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick View button stays at the bottom of the card */}
+            <button className="absolute bottom-4 left-4 right-4 bg-blue-600 text-white py-2 rounded-md opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+              Quick View
+            </button>
           </div>
-        </>
-      )}
+        ))}
+      </div>
     </div>
   );
 };

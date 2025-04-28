@@ -1,100 +1,154 @@
-import React, { useState, useEffect } from "react";
-import { IoFilterOutline } from "react-icons/io5";
-import ApartmentCard from "../../components/ApartmentCard";
-import QuickViewPage from "../QuickViewPage";
-import QuickViewPageTwo from "../../components/QuickViewPageTwo";
-import { FaWifi, FaBed, FaSwimmingPool } from "react-icons/fa";
+import React from "react";
+import { FaWifi, FaSwimmingPool, FaBed } from "react-icons/fa";
+import progone from "../../../assets/lekphotoone.png";
+import progtwo from "../../../assets/lekphotoone.png";
+import progthree from "../../../assets/lekphototwo.png";
+import progfour from "../../../assets/lekphotothree.png";
+import progfive from "../../../assets/lekphotofour.png";
+import progsix from "../../../assets/lekphotosix.png";
 
 const FavoritePage = () => {
-  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
-  const [isQuickViewTwoOpen, setIsQuickViewTwoOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
-  const [selectedApartment, setSelectedApartment] = useState(null); // ✅ NEW
-  const [apartments, setApartments] = useState([]);
-
-  useEffect(() => {
-    const fetchApartments = async () => {
-      const token = localStorage.getItem("token");
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-
-      try {
-        const response = await fetch(
-          "https://home4u-3.onrender.com/reservation/?homepage=home",
-          { headers }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        const formatted = data.results.map((item) => ({
-          id: item.id,
-          image: item.images[0]?.image_url || "",
-          name: item.house,
-          price: item.price,
-          location: item.address,
-          rating: Math.round(item.average_rating) || 0,
-          reviews: item.ratings_reviews,
-          features: [
-            item.wifi ? { icon: <FaWifi className="text-lg" />, label: "Wi-Fi" } : null,
-            item.swimmingpool ? { icon: <FaSwimmingPool className="text-lg" />, label: "Pool" } : null,
-            { icon: <FaBed className="text-lg" />, label: `${item.beds} Beds` },
-          ].filter(Boolean),
-        }));
-
-        setApartments(formatted);
-      } catch (error) {
-        console.error("Error fetching favorite apartments:", error);
-      }
-    };
-
-    fetchApartments();
-  }, []);
+  const favorites = [
+    {
+      id: 1,
+      name: "The Regen House",
+      location: "Los Angeles, USA",
+      price: "$20,000",
+      rating: 5,
+      reviews: 130,
+      image: progone,
+      features: [
+        { icon: <FaBed />, label: "3 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+      ],
+    },
+    {
+      id: 2,
+      name: "Shakira Sherafin House",
+      location: "New York City, USA",
+      price: "$45,000",
+      rating: 4,
+      reviews: 98,
+      image: progtwo,
+      features: [
+        { icon: <FaBed />, label: "5 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+      ],
+    },
+    {
+      id: 3,
+      name: "White House",
+      location: "Los Angeles, USA",
+      price: "$120,000",
+      rating: 5,
+      reviews: 130,
+      image: progthree,
+      features: [
+        { icon: <FaBed />, label: "11 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+      ],
+    },
+    {
+      id: 4,
+      name: "Obi's House",
+      location: "Maimi, USA",
+      price: "$10,000",
+      rating: 5,
+      reviews: 77,
+      image: progfour,
+      features: [
+        { icon: <FaBed />, label: "3 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+      ],
+    },
+    {
+      id: 5,
+      name: "TM30 House",
+      location: "Los Angeles, USA",
+      price: "$20,000",
+      rating: 5,
+      reviews: 130,
+      image: progfive,
+      features: [
+        { icon: <FaBed />, label: "5 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+      ],
+    },
+    {
+      id: 6,
+      name: "Prima's House",
+      location: "New York City, USA",
+      price: "$75,000",
+      rating: 5,
+      reviews: 135,
+      image: progsix,
+      features: [
+        { icon: <FaBed />, label: "5 Beds" },
+        { icon: <FaWifi />, label: "Wi-Fi" },
+        { icon: <FaSwimmingPool />, label: "Pool" },
+      ],
+    },
+  ];
 
   return (
-    <div className="flex flex-col min-h-screen overflow-auto">
-      {isQuickViewOpen ? (
-        <QuickViewPage 
-          id={selectedId}
-          onBack={() => setIsQuickViewOpen(false)} 
-        />
-      ) : isQuickViewTwoOpen ? (
-        <QuickViewPageTwo
-          apartment={selectedApartment}
-          onBack={() => setIsQuickViewTwoOpen(false)}
-        />
-      ) : (
-        <>
-          <div className="w-full bg-white py-4 px-6 flex justify-between items-center">
-            <h2 className="text-xl font-semibold text-gray-700">Favorite Apartments</h2>
-            <div className="flex items-center px-6 py-2 bg-[#F5F7F9] rounded-md cursor-pointer">
-              <IoFilterOutline className="text-gray-600 text-lg mr-2" />
-              <p className="text-gray-700">Filter</p>
-            </div>
-          </div>
-
-          <div className="w-full flex-grow bg-[#FAFAFA] p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {apartments.map((apartment, index) => (
-              <ApartmentCard
-                key={apartment.id}
-                {...apartment}
-                onQuickView={() => {
-                  setSelectedId(apartment.id);
-                  setSelectedApartment(apartment); // ✅ Set the selected apartment too
-                  index < 3
-                    ? setIsQuickViewOpen(true)
-                    : setIsQuickViewTwoOpen(true);
-                }}
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] p-6">
+      <h1 className="text-2xl  mb-6">Favorites Apartment</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {favorites.map((fav) => (
+          <div
+            key={fav.id}
+            className="group bg-white rounded-lg shadow-sm overflow-hidden relative hover:shadow-md transition-all"
+          >
+            {/* Image shrink on hover */}
+            <div className="h-[288px] group-hover:h-[240px] transition-all duration-300 overflow-hidden">
+              <img
+                src={fav.image}
+                alt={fav.name}
+                className="w-full h-full object-cover transition-all duration-300"
               />
-            ))}
+            </div>
+
+            {/* Text slides up */}
+            <div className="p-4 transition-all duration-300 group-hover:-translate-y-4">
+              <div className="flex justify-between items-center mb-1">
+                <h2 className="text-lg font-semibold">{fav.name}</h2>
+                <p className="text-md font-bold text-gray-800">{fav.price}</p>
+              </div>
+
+              <p className="text-gray-600 mb-2">{fav.location}</p>
+
+              <div className="flex mb-1 space-x-1 text-yellow-400">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i}>{i < fav.rating ? "★" : "☆"}</span>
+                ))}
+              </div>
+
+              <p className="text-sm text-gray-500 mb-3">
+                ({fav.reviews} reviews)
+              </p>
+
+              <div className="flex justify-between text-sm text-gray-600 mb-10">
+                {fav.features.map((feature, index) => (
+                  <div key={index} className="flex items-center gap-1">
+                    {feature.icon}
+                    <span>{feature.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick View Button */}
+            <button className="absolute bottom-4 left-4 right-4 bg-blue-600 text-white py-2 rounded-md opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+              Quick View
+            </button>
           </div>
-        </>
-      )}
+        ))}
+      </div>
     </div>
   );
 };

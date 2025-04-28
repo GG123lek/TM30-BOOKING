@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import profilepics from "../../assets/Avatar.png";
 import prof from "../../assets/navigationone.png";
@@ -7,14 +7,7 @@ import spark from "../../assets/sparkle.png";
 import cal from "../../assets/Calendar.png";
 
 const Sidebar = () => {
-  const navigate = useNavigate();
-  const username = localStorage.getItem("username") || "Prime Abiola";
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    navigate("/signinpage");
-  };
+ 
 
   return (
     <div className="h-full bg-white shadow-md flex flex-col relative">
@@ -69,10 +62,10 @@ const Sidebar = () => {
           alt="Profile" 
           className="w-12 h-12 bg-gray-300 rounded-full" 
         />
-        <p className="text-gray-700 font-medium">{username}</p>
+        <p className="text-gray-700 font-medium">Prime Boy</p>
         <FaArrowRightFromBracket 
           className="text-red-500 cursor-pointer hover:text-red-500 text-lg"
-          onClick={handleLogout}
+         
         />
       </div>
     </div>
