@@ -47,7 +47,7 @@ const handleBookNow = () => {
       className="flex items-center text-gray-700 hover:text-gray-900 mb-4 cursor-pointer"
     >
       <FaArrowLeft className="mr-2" /> 
-      <span className="text-sm font-medium">Back</span>
+      <span className="text-md font-medium">Back</span>
     </button>
       {/* Content Section */}
       <div className="flex flex-col md:flex-row gap-6">

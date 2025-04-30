@@ -35,7 +35,7 @@ const EmptyPage = () => {
             <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-bold">
               1
             </div>
-            <span className="ml-2 text-sm font-medium text-blue-600">Personal</span>
+            <span className="ml-2 text-sm font-medium text-blue-600">Personal details</span>
           </div>
 
           {/* Line */}
@@ -70,10 +70,10 @@ const EmptyPage = () => {
           {/* Back Button */}
           <button
             onClick={handleGoBack}
-            className="flex items-center text-green-700 hover:text-green-900 mb-6"
+            className="flex items-center  mb-6"
           >
             <FaArrowLeft className="mr-2" />
-            <span className="text-md font-semibold">Back</span>
+            <span className="text-md font-semibold cursor-pointer">Back</span>
           </button>
 
           {/* Image and Text */}

@@ -1,14 +1,19 @@
 // App.jsx
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+
+// Layout and pages
 import Layout from "./assets/components/Layout";
 import DiscoverPage from "./assets/components/Pages/DiscoverPage";
 import FavoritePage from "./assets/components/Pages/FavoritePage";
-import Loader from "./assets/components/Loader";
 import BookingPage from "./assets/components/Pages/BookingPage";
 import DetailPage from "./assets/components/DetailPage";
-import EmptyPage from "./assets/components/EmptyPage"
 import PaymentCheckout from "./assets/components/PaymentCheckout";
+import Confirmation from "./assets/components/Confirmation";
+import EmptyPage from "./assets/components/EmptyPage";
+
+// Loader component
+import Loader from "./assets/components/Loader";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -27,18 +32,17 @@ function App() {
   return (
     <Routes>
       {isAuthenticated ? (
-        <>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<DiscoverPage />} />
-            <Route path="discover" element={<DiscoverPage />} />
-            <Route path="favorite" element={<FavoritePage />} />
-            <Route path="booking" element={<BookingPage />} />
-            <Route path="apartment/:id" element={<DetailPage />} />
-            <Route path="/empty" element={<EmptyPage />} />
-            <Route path="/checkout" element={<PaymentCheckout />} />
-            <Route path="*" element={<Navigate to="/discover" />} />
-          </Route>
-        </>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<DiscoverPage />} />
+          <Route path="discover" element={<DiscoverPage />} />
+          <Route path="favorite" element={<FavoritePage />} />
+          <Route path="booking" element={<BookingPage />} />
+          <Route path="apartment/:id" element={<DetailPage />} />
+          <Route path="checkout" element={<PaymentCheckout />} />
+          <Route path="confirmation" element={<Confirmation />} />
+          <Route path="empty" element={<EmptyPage />} />
+          <Route path="*" element={<Navigate to="/discover" />} />
+        </Route>
       ) : (
         <Route path="*" element={<Navigate to="/login" />} />
       )}
@@ -46,4 +50,4 @@ function App() {
   );
 }
 
-export default App; // Ensure you have this line!
+export default App;
