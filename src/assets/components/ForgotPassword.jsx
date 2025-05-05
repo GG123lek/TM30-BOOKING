@@ -1,54 +1,60 @@
-import React from "react";
-import backgroundImage from "../../assets/framesignup.png";  
-const ForgotPassword = () => {
+import React, { useState } from "react";
+import mecss from "../../assets/mecs.png"; // Your image
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // For password show/hide icons
+
+const ForgetPassword = () => {
+  const [email, setEmail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
-    <div className="h-screen w-screen flex">
-      
-      <div
-        className="w-1/2 h-full bg-cover bg-center"
-        style={{ backgroundImage: `url(${backgroundImage})` }}  
-      ></div>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-lg overflow-hidden w-full h-screen">
 
-     
-      <div className="w-1/2 h-full bg-white flex items-center justify-center">
-        <div className="w-full max-w-md px-8">
-         
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-800">Forgot your password?</h2>
-            <p className="text-sm text-gray-500 mt-1">No worries, let’s get you back on track.</p>
-          </div>
+        {/* Image Section */}
+        <div className="md:w-1/2 w-full h-full">
+          <img
+            src={mecss}  // Add your image here
+            alt="Forgot Password"
+            className="h-full w-full object-cover"
+          />
+        </div>
 
-         
-          <form className="space-y-5">
+        {/* Form Section */}
+        <div className="md:w-1/2 w-full h-full p-6 md:p-10 flex flex-col justify-center items-center space-y-4">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">Forgot Password</h2>
+          <p className="text-gray-600 mb-4 text-sm">No worries, lets get you back on track</p>
+
+          <form className="space-y-3 w-full max-w-sm">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+              <label className="block text-gray-700 text-sm font-semibold mb-1">Email Address</label>
               <input
                 type="email"
-                placeholder="Enter your email address"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
 
-            
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition cursor-pointer"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition duration-200"
             >
-              Reset Password
+              Send Reset Link
             </button>
-
-           
-            <p className="text-sm text-center text-gray-600 mt-4">
-              Remembered yet?{" "}
-              <span className="text-blue-600 font-medium cursor-pointer hover:underline">
-                Login here
-              </span>
-            </p>
           </form>
+
+          {/* "Go back to login" Link */}
+          <p className="text-sm text-center text-gray-600 mt-2">
+            Remember Yet?{" "}
+            <a href="/login" className="text-blue-500 hover:text-blue-700 font-semibold">
+               login here
+            </a>
+          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default ForgotPassword;
+export default ForgetPassword;
